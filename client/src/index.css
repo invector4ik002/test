@@ -1,1 +1,6 @@
 @import "~materialize-css/dist/css/materialize.min.css";
+
+
+.card-action__btn_margin-right {
+   margin-right: 20px;
+}
