@@ -1,0 +1,6 @@
+{
+   "port": 4000,
+   "jwtSecret": "test",
+   "mongoUri": "mongodb+srv://admin:1234test@cluster0.2g4hf.azure.mongodb.net/Test?retryWrites=true&w=majority",
+   "baseUrl": "http://localhost:4000"
+}
