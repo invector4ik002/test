@@ -5,17 +5,17 @@ const schema = new Schema({
      type: String,
      required: true
    },
-   message: {
+   content: {
       type: String,
       required: true
    },
-   date: {             
-      type: Date,       
-      default: Date.now
-   },
+   // date: {             
+   //    type: Date,       
+   //    default: Date.now
+   // },
    owner: {
       type: Types.ObjectId, ref: 'User'
    }
 });
 
-module.exports = model('Post', schema);
+module.exports = model('Message', schema);

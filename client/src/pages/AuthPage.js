@@ -53,6 +53,7 @@ export const AuthPage = () => {
                            placeholder='Ввидите email'
                            id='email' 
                            type='text' 
+                           value={form.email}
                            name='email'
                            onChange={changeHandler}
                         />
@@ -64,6 +65,7 @@ export const AuthPage = () => {
                            placeholder='Ввидите пароль' 
                            id='password' 
                            type='password' 
+                           value={form.password}
                            name='password'
                            onChange={changeHandler}
                         />

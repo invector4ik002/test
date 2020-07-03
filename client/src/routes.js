@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { PostsPage } from './pages/PostsPage';
-import { PostsEditPage } from './pages/PostsEditPage';
+import { PostsCreatePage } from './pages/PostsCreatePage';
 import { AuthPage } from './pages/AuthPage';
 
 export const useRoutes = ( isAuthenticated ) => {
@@ -11,9 +11,9 @@ export const useRoutes = ( isAuthenticated ) => {
             <Route path='/posts' exact>
                <PostsPage />
             </Route>
-            <Route path='/edit/:id'>
-               <PostsEditPage />
-            </Route>
+            {/* <Route path='/edit/:id'>
+               <PostsCreatePage />
+            </Route> */}
             <Redirect to='/posts'/>
          </Switch>
       )
@@ -23,6 +23,9 @@ export const useRoutes = ( isAuthenticated ) => {
       <Switch>
          <Route path='/' exact>
             <AuthPage />
+         </Route>
+         <Route path='/edit/' >
+            <PostsCreatePage />
          </Route>
          <Redirect to='/' />
       </Switch>
