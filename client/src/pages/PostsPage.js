@@ -11,7 +11,7 @@ export const PostsPage = () => {
    const [posts, setPosts] = useState([]);
    const {loading, request} = useHttp();
    const {token} = useContext(AuthContext);
-   console.log('тут ссылки ?', posts)
+   // console.log('тут ссылки ?', posts)
    // console.log('PostPage:', token)
    const fetchPosts = useCallback( async () => {
       try {
