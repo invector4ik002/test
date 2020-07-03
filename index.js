@@ -8,7 +8,7 @@ app.use(express.json({ extended: true }));
 
 app.use('/api/auth', require('./routes/auth.routes'));
 // app.use('/api/link', require('./routes/link.routes')); // подключаем мидлвр обработка API запросов с ФРОНТА с маршрутизатором link.routes(логикой отправок и запросов)
-// app.use('/t', require('./routes/redirect.routes'));
+app.use('/api/post', require('./routes/post.routes'));
 
 const PORT = config.get('port') || 4000;
 /**

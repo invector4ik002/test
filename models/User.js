@@ -10,10 +10,10 @@ const schema = new Schema({
       type: String,
       required: true
    },
-   Posts:[{
-      type: Types.ObjectId,
-      ref: 'Post'
-   }]
+   // Posts:[{
+   //    // type: Types.ObjectId,
+   //    ref: 'Post'
+   // }]
 });
 
 module.exports = model('User', schema);

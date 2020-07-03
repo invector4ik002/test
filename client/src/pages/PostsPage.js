@@ -1,9 +1,43 @@
-import React from 'react';
+import React, {useState, useContext, useCallback, useEffect} from 'react';
+
+import { Post } from '../components/Post';
+import {useHttp} from '../hooks/http.hook';
+import {AuthContext} from '../context/AuthContext';
+import { Loader } from '../components/Loader';
+// import { LinksList } from '../components/LinksList';
+
 
 export const PostsPage = () => {
+   const [posts, setPosts] = useState([]);
+   const {loading, request} = useHttp();
+   const {token} = useContext(AuthContext);
+   console.log('тут ссылки ?', posts)
+   // console.log('PostPage:', token)
+   const fetchPosts = useCallback( async () => {
+      try {
+         const fetched = await request('/api/post', 'GET', null, {
+            Authorization: `Bearer ${token}`
+         })
+         setPosts(fetched)
+      } catch(err){
+
+      }
+      
+   }, [token, request])
+   
+   useEffect(() => {
+      fetchPosts()
+   }, [fetchPosts])
+   
+   if (loading) {
+      return (
+         <Loader />
+      )
+   }
+   
    return (
-      <div>
-         <h1>PostsPage</h1>
-      </div>
+      <>
+         {!loading && <Post posts={posts}/>}
+      </>
    )
 }

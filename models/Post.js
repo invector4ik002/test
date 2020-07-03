@@ -8,14 +8,15 @@ const schema = new Schema({
    content: {
       type: String,
       required: true
-   },
+   }
    // date: {             
    //    type: Date,       
    //    default: Date.now
    // },
-   owner: {
-      type: Types.ObjectId, ref: 'User'
-   }
+   // owner: {
+   //    type: Types.ObjectId, 
+   //    ref: 'User'
+   // }
 });
 
-module.exports = model('Message', schema);
+module.exports = model('Post', schema);

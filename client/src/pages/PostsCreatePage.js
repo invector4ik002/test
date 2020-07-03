@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHttp } from '../hooks/http.hook';
 // import { useMessage } from '../hooks/message.hook';
 
@@ -10,19 +10,24 @@ export const PostsCreatePage = () => {
    });
    
    // const message = useMessage();
-   const {loading, request, error} = useHttp();
+   const {loading, request} = useHttp();
 
    const changeHandler = (event) => {
       setPost({...post, [event.target.name]: event.target.value})
    };
 
-   const createHandler = () => {
-      // try {
-      //    const data = await request('/api/auth/register', 'POST', {...post})
-      //    // message(data.message)
-      // } catch(e) {}
+   const createHandler = async () => {
+      try {
+         const data = await request('/api/post/generate', 'POST', {...post})
+         // message(data.message)
+         console.log(data)
+      } catch(e) {}
       console.log(post)
    };
+  
+   useEffect(() => {// Убираем баг с label
+      window.M.updateTextFields()
+   }, []);
 
    return (
       <div className='row'>
