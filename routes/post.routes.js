@@ -1,7 +1,6 @@
 const { Router } = require('express'); // из библиотеки подключаем Router
 const Post = require('../models/Post'); // принемаем модель (объкт с полями настроек наших ссылок)
 const router = Router() // создаем (обьект) при помощи функции Router
-// const auth = require('../middleware/auth.middleware');
 
 router.post('/generate', async (req, res) => { // по этой ссылке будет происходить генерация ссылок "сокращенная"
    try {
@@ -10,7 +9,6 @@ router.post('/generate', async (req, res) => { // по этой ссылке б�
       const post = new Post ({
          name,
          content, 
-         // owner
       })
       await post.save(); // сохранеяем ссылку на БД
 
@@ -35,31 +33,15 @@ router.get('/', async (req, res) => { // гет запрос для получе
       res.status(500).json({ message: '...Error server !!!' })
    }
 });
-router.put('/:id', async (req, res) => { // гет запрос для получения всех ссылок и возвращают их
-   try { // получение данных пользователя с фронтенда получится по jwtToken потому что в нем закодирован userId это также пригодятся для 
-   // привязывания новой ссылки к пользователю
-   //   const id = new objectId(req.body._id);
-   //   const  userName = req.body.name;
-   //   const userContent  = req.body.content;
 
 
-     const post = await Post.findOneAndUpdate( {_id: id}, { $set: { name: userName, content: userContent }} ) // в переменной (обьект-модель) в которой находим ссылки владельца
-
-   //   await post.save();
-     res.json(post) // получаем на фронт обьект по модели
-   //   console.log(post)// ?
+router.put('/:id', async (req, res) => { // гет запрос для получения ссылок по id и возвращают их
+   try {
+     const post = await Post.findOneAndUpdate({id: req.params._id}, {$set: req.body} ) // в переменной (обьек-ссылка по id) в которой находим врадельца по .findById
+     res.status(200).json(post) // получаем на фронт (обьект-ссылку) из модели
    } catch (err) {
-      res.status(500).json({ message: '...Error server !!!' })
+   res.status(500).json({ message: '...Error server !!!' })
    }
 });
-
-// router.get('/:id', auth, async (req, res) => { // гет запрос для получения ссылок по id и возвращают их
-//    try {
-//      const post = await Post.findById(req.params.id) // в переменной (обьек-ссылка по id) в которой находим врадельца по .findById
-//      res.json(post) // получаем на фронт (обьект-ссылку) из модели
-//    } catch (err) {
-//    res.status(500).json({ message: '...Error server !!!' })
-//    }
-// });
 
 module.exports = router // экспортируем данный модуль

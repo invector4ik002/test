@@ -3,8 +3,8 @@ import { useHttp } from '../hooks/http.hook';
 
 
 
-export const EditPosts = ({ closeHandler }) => {
-
+export const EditPosts = ({ closeHandler, postId }) => {
+console.log('EditPosts:', postId)
    const {loading, request} = useHttp();
 
    const [post, setPost] = useState({
@@ -16,9 +16,9 @@ export const EditPosts = ({ closeHandler }) => {
       setPost({...post, [event.target.name]: event.target.value})
    };
 
-   const createHandler = async () => {
+   const editHandler = async () => {
       try {
-         const data = await request('/api/post/:id', 'PUT', {...post})
+         const data = await request(`/api/post/${postId}`, 'PUT', {...post})
          // message(data.message)
          closeHandler()
          console.log(data)
@@ -67,7 +67,7 @@ export const EditPosts = ({ closeHandler }) => {
                <div className='card-action'>
                   <button 
                      className='btn yellow darken-4 card-action__btn_margin-right'
-                     onClick={createHandler}
+                     onClick={editHandler}
                      disabled={loading}
                   >создать
                   </button>

@@ -3,24 +3,29 @@ import { EditPosts } from './EditPosts';
 import { useHttp } from '../hooks/http.hook';
 
 export const Post = ({ posts }) => {
+
    const {loading} = useHttp();
+  
+   const [postId, setPostId] = useState(null);
    const [hiden, setHiden] = useState(false);
-
-   const editHandler = () => {
-      setHiden(true)
-   }
-
-   const closeHandler = () => {
-      setHiden(false)
-   }
+   console.log(postId)
+   console.log(hiden)
 
    return (
-      
-      <div className="row">
-         { posts.map( (post, index) => {
+      <div className="row"> 
+         { posts.map( (post) => {
+    
+            // const openHandler = () => {
+            //    setHiden(true)
+            // }
+
+            const closeHandler = () => {
+               setHiden(false)
+            } 
+
             return (
-               <>
-               <div className="col s12 m12" key={ index }>
+               <div className="col s12 m12" key={post._id}>
+                  { hiden && <EditPosts closeHandler={closeHandler} postId={postId}/> }
                   <div className="card blue-grey darken-1">
                      <div className="card-content white-text">
                         <span className="card-title">{ post.name }</span>
@@ -29,7 +34,9 @@ export const Post = ({ posts }) => {
                      <div className="card-action">
                         <button 
                            className='btn blue accent-2 card-action__btn_margin-right'
-                           onClick={editHandler}
+                           // onClick={openHandler}
+                           onClick={e => setPostId(e.target.id)}
+                           id = {post._id}
                            disabled={loading}
                            >Редактировать
                         </button>
@@ -41,9 +48,7 @@ export const Post = ({ posts }) => {
                         </button>
                      </div>
                  </div>
-               </div>
-               { hiden && <EditPosts closeHandler={closeHandler}/> }
-               </>
+               </div>   
             )
          })}
       </div>
