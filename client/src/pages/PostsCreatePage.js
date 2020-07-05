@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHttp } from '../hooks/http.hook';
+import { Redirect } from 'react-router-dom';
 // import { useMessage } from '../hooks/message.hook';
 
 export const PostsCreatePage = () => {
@@ -71,12 +72,13 @@ export const PostsCreatePage = () => {
                      disabled={loading}
                   >Создать
                   </button>
-                  {/* <button 
+                  <button 
                      className='btn grey lighten-1 black-text'
-                     onClick={registerHandler} 
+                     // onClick={registerHandler} 
                      disabled={loading}
-                  >Регистрация
-                 </button> */}
+                     
+                  >выход
+                 </button>
                </div>
             </div>
          </div>

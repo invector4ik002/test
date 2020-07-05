@@ -8,7 +8,7 @@ const schema = new Schema({
    content: {
       type: String,
       required: true
-   }
+   },
 });
 
 module.exports = model('Post', schema);

@@ -4,7 +4,7 @@ import { useHttp } from '../hooks/http.hook';
 
 
 export const EditPosts = ({ closeHandler, postId }) => {
-console.log('EditPosts:', postId)
+
    const {loading, request} = useHttp();
 
    const [post, setPost] = useState({
@@ -20,10 +20,11 @@ console.log('EditPosts:', postId)
       try {
          const data = await request(`/api/post/${postId}`, 'PUT', {...post})
          // message(data.message)
-         closeHandler()
-         console.log(data)
+         await closeHandler()
+         console.log('RES PUT', data)
       } catch(e) {}
    };
+   
 
    useEffect(() => {// Убираем баг с label
       window.M.updateTextFields()

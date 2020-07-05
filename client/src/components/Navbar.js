@@ -2,10 +2,17 @@ import React, { useContext } from 'react';
 import { useHistory, NavLink } from 'react-router-dom';
 
 import { AuthContext } from '../context/AuthContext';
+import { useAuth } from '../hooks/auth.hook';
+
+
 
 export const Navbar = () => {
+
    const history = useHistory();
    const auth = useContext(AuthContext);
+   const { token } = useAuth()
+   const isAuthenticated = !!token;
+
    const logoutHandler = (event) => {
       event.preventDefault();
       auth.logout();
@@ -18,8 +25,8 @@ export const Navbar = () => {
            <a href="/" className="brand-logo">Test</a>
            <ul className="right hide-on-med-and-down" id="nav-mobile">
              <li><NavLink to='/edit/'>Создать пост</NavLink></li>
-             <li><a href="/">Вход</a></li>
-             <li><a href="/" onClick={logoutHandler}>Выход</a></li>
+             {/* {isAuthenticated && <li><a href="/">Вход</a></li>} */}
+             { isAuthenticated &&  <li><a href="/" onClick={logoutHandler}>Выход</a></li>}
            </ul>
          </div>
       </nav>

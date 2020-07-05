@@ -11,9 +11,9 @@ export const useRoutes = ( isAuthenticated ) => {
             <Route path='/posts' exact>
                <PostsPage />
             </Route>
-            {/* <Route path='/edit/:id'>
+            <Route path='/edit/' >
                <PostsCreatePage />
-            </Route> */}
+            </Route>
             <Redirect to='/posts'/>
          </Switch>
       )

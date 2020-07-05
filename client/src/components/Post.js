@@ -4,27 +4,38 @@ import { useHttp } from '../hooks/http.hook';
 
 export const Post = ({ posts }) => {
 
-   const {loading} = useHttp();
+   const {loading, request} = useHttp();
   
    const [postId, setPostId] = useState(null);
    const [hiden, setHiden] = useState(false);
-   console.log(postId)
-   console.log(hiden)
+
+   const openHandler = (event) => {
+      setPostId(event.target.id)
+      setHiden(true)
+      // console.log(e.target.id)
+   }
+
+   const closeHandler = () => {
+      setHiden(false)
+   }
+
+   const deleteHandler = async (event) => {
+      
+      try {
+         setPostId(event.target.id)
+         const data = await request(`/api/post/${postId}`, 'DELETE' )
+         // message(data.message)
+         // await closeHandler()
+         console.log('RES PUT', data)
+      } catch(e) {}
+   };
 
    return (
       <div className="row"> 
-         { posts.map( (post) => {
-    
-            // const openHandler = () => {
-            //    setHiden(true)
-            // }
-
-            const closeHandler = () => {
-               setHiden(false)
-            } 
-
+         { posts.map( (post, index) => {
+         //   console.log(post._id)
             return (
-               <div className="col s12 m12" key={post._id}>
+               <div className="col s12 m12" key={index}>
                   { hiden && <EditPosts closeHandler={closeHandler} postId={postId}/> }
                   <div className="card blue-grey darken-1">
                      <div className="card-content white-text">
@@ -34,15 +45,16 @@ export const Post = ({ posts }) => {
                      <div className="card-action">
                         <button 
                            className='btn blue accent-2 card-action__btn_margin-right'
-                           // onClick={openHandler}
-                           onClick={e => setPostId(e.target.id)}
+                           onClick={openHandler}
+                           // onClick={e => setPostId(e.target.id)}
                            id = {post._id}
                            disabled={loading}
                            >Редактировать
                         </button>
                         <button 
                            className='btn red accent-3 black-text'
-                           // onClick={registerHandler} 
+                           onClick={deleteHandler} 
+                           id = {post._id}
                            disabled={loading}
                            >Удалить
                         </button>
