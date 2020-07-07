@@ -20,13 +20,13 @@ export const Post = ({ posts }) => {
    }
 
    const deleteHandler = async (event) => {
-      
+      await setPostId(event.target.id)
       try {
-         setPostId(event.target.id)
-         const data = await request(`/api/post/${postId}`, 'DELETE' )
+         const data = await request(`/api/post/${postId}`, 'DELETE')
+         
          // message(data.message)
          // await closeHandler()
-         console.log('RES PUT', data)
+         console.log('RES PUT', data._id)
       } catch(e) {}
    };
 

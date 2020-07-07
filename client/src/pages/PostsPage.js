@@ -1,4 +1,5 @@
-import React, {useState, useContext, useCallback, useEffect} from 'react';
+// useContext, 
+import React, {useState, useCallback, useEffect, useContext} from 'react';
 
 import { Post } from '../components/Post';
 import {useHttp} from '../hooks/http.hook';
@@ -17,7 +18,7 @@ export const PostsPage = () => {
          })
          setPosts(fetched)
       } catch(err){}
-      
+      //token
    }, [token, request])
    
    useEffect(() => {

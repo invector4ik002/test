@@ -25,3 +25,13 @@
    align-items: center;
    z-index: 1;
 }
+
+.search-input {
+   width: 10% !important;
+   /* margin-left: 38% !important; */
+   
+}
+.margin-left{
+   margin-left: 400px !important;
+   margin-top: -64px !important;
+}

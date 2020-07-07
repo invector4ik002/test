@@ -33,7 +33,6 @@ export const EditPosts = ({ closeHandler, postId }) => {
    return (
       <div className='row question-wraper'>
          <div className='col '>
-            {/* <h1>Список постов</h1> */}
             <div className='card blue-grey darken-1'>
                <div className='card-content white-text'>
                   <span className='card-title'>Редактировать тестовые сообщения</span>

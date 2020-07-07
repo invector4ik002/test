@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHttp } from '../hooks/http.hook';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 // import { useMessage } from '../hooks/message.hook';
 
 export const PostsCreatePage = () => {
@@ -33,7 +33,6 @@ export const PostsCreatePage = () => {
    return (
       <div className='row'>
          <div className='col s6 offset-s3'>
-            {/* <h1>Список постов</h1> */}
             <div className='card blue-grey darken-1'>
                <div className='card-content white-text'>
                   <span className='card-title'>Создадим тестовые сообщения</span>
