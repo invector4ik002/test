@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { PostsPage } from './pages/PostsPage';
+import  PostsPage  from './pages/PostsPage';
 import { PostsCreatePage } from './pages/PostsCreatePage';
 import { AuthPage } from './pages/AuthPage';
 

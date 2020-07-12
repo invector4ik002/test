@@ -22,6 +22,7 @@ export const PostsCreatePage = () => {
          const data = await request('/api/post/generate', 'POST', {...post})
          // message(data.message)
          console.log(data)
+         setPost({ name: '', content: '' })
       } catch(e) {}
       console.log(post)
    };

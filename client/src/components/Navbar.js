@@ -1,23 +1,23 @@
 import React, { useContext, useState } from 'react';
-import { useHistory, NavLink } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 import { AuthContext } from '../context/AuthContext';
 import { useAuth } from '../hooks/auth.hook';
+import { connect, useDispatch } from 'react-redux';
+import { searchPost } from '../redux/action';
+import { filterPosts } from '../redux/action';
 
-export const Navbar = () => {
-
+const Navbar = ({searchPosts}) => {
+   console.log(searchPosts)
+   const dispatch = useDispatch()
    const history = useHistory();
    const auth = useContext(AuthContext);
-
    const { token } = useAuth()
    const isAuthenticated = !!token;
-
-   const [search, setSearch] = useState({
-      name:''
-   });
+   const [search, setSearch] = useState('');
    
-   const logoutHandler = (event) => {
-      event.preventDefault();
+   const logoutHandler = () => {
+      // event.preventDefault();
       auth.logout();
       history.push('/');
    }
@@ -25,10 +25,14 @@ export const Navbar = () => {
    const changeHandler = (event) => {
       setSearch({...search, [event.target.name]: event.target.value})
    }
-
-   // const searchHandler = () => {
-      
-   // }
+   // console.log(typeof searchPost)
+   // searchPost(search)
+   const searchHandler = () => {
+      dispatch(searchPost(search));
+      dispatch(filterPosts(search));
+   // console.log(search)
+   //  searchPost(false)
+   }
 
    return (
       <nav>
@@ -46,21 +50,35 @@ export const Navbar = () => {
                      placeholder="Поиск по имени"
                      onChange={changeHandler}
                   />
-                  {/* <button 
+                  <button 
                      className='waves-effect blue accent-2 btn-small' 
                      htmlFor='search'
+                     //() => dispatch(searchPost(search))
                      onClick={searchHandler}
                      >поиск
-                  </button> */}
+                  </button>
                </div>}
 
 
                <ul className="right hide-on-med-and-down margin-left" id="nav-mobile">
-                  <li><NavLink to='/edit/'>Создать пост</NavLink></li>
-                  { isAuthenticated &&  <li><NavLink to="/" onClick={logoutHandler}>Выход</NavLink></li>}
+                  <li><Link to='/edit/'>Создать пост</Link></li>
+                  { isAuthenticated &&  <li><Link to="/" onClick={logoutHandler}>Выход</Link></li>}
                </ul>
            {/* </div> */}
          </div>
       </nav>
    )
 }
+
+
+const mapStateToProps = (state) => {
+   // console.log(state)
+   return {
+      searchPosts: state.filter.fetchPosts
+   }
+}
+// const mapDispatchToProps = {
+//    searchPost
+// }
+// console.log(typeof searchPost)
+export default connect(mapStateToProps ,null)(Navbar);

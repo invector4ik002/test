@@ -2,17 +2,20 @@ import React, {useState} from 'react';
 import { EditPosts } from './EditPosts';
 import { useHttp } from '../hooks/http.hook';
 
-export const Post = ({ posts }) => {
 
+export const Post = ({ stateArr }) => {
+   
    const {loading, request} = useHttp();
-  
    const [postId, setPostId] = useState(null);
    const [hiden, setHiden] = useState(false);
+   // console.log('Post/js:',allposts)
+   // const x = posts
+    
+   
 
    const openHandler = (event) => {
       setPostId(event.target.id)
       setHiden(true)
-      // console.log(e.target.id)
    }
 
    const closeHandler = () => {
@@ -23,17 +26,17 @@ export const Post = ({ posts }) => {
       await setPostId(event.target.id)
       try {
          const data = await request(`/api/post/${postId}`, 'DELETE')
-         
-         // message(data.message)
-         // await closeHandler()
          console.log('RES PUT', data._id)
       } catch(e) {}
    };
-
+  
+   // if(allposts,length) {
+   //    posts = allposts
+   // }
+     
    return (
       <div className="row"> 
-         { posts.map( (post, index) => {
-         //   console.log(post._id)
+         { stateArr.map( (post, index) => {
             return (
                <div className="col s12 m12" key={index}>
                   { hiden && <EditPosts closeHandler={closeHandler} postId={postId}/> }
@@ -46,7 +49,6 @@ export const Post = ({ posts }) => {
                         <button 
                            className='btn blue accent-2 card-action__btn_margin-right'
                            onClick={openHandler}
-                           // onClick={e => setPostId(e.target.id)}
                            id = {post._id}
                            disabled={loading}
                            >Редактировать
@@ -59,10 +61,11 @@ export const Post = ({ posts }) => {
                            >Удалить
                         </button>
                      </div>
-                 </div>
+                  </div>
                </div>   
             )
          })}
       </div>
    )
 }
+
