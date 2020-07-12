@@ -9,15 +9,15 @@ import { Loader } from '../components/Loader';
 import { getArrSearch } from '../redux/action';
 
 const PostsPage = ({ searchItem, stateArr }) => {
-   console.log(searchItem)
-   console.log(stateArr)
+   console.log('PostPage searchItem:',searchItem)
+   console.log('PostPage stateArr:',stateArr)
    // const [posts, setPosts] = useState([]);
    const [allposts, setAllPosts] = useState([]);
    const { loading } = useHttp();
    const dispatch = useDispatch();
    const x = searchItem.search;
    
-   dispatch(getArrSearch(allposts));
+   
    // dispatch(getPosts(posts));
    // console.log('PostPage.js (h) setPosts:', posts);
    console.log('PostPage (h) setAllPosts:',allposts);
@@ -26,8 +26,8 @@ const PostsPage = ({ searchItem, stateArr }) => {
       const regexp = new RegExp(x, 'i' );
       setAllPosts(stateArr.filter((el) => regexp.test(el.name)));//???
       
-   },[x, dispatch])
-  
+   },[x, stateArr, dispatch])
+   dispatch(getArrSearch(allposts));
    // const {token} = useContext(AuthContext);
    // const fetchPosts = useCallback( async () => {
    //    try {

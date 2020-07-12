@@ -2,16 +2,11 @@ import React, {useState} from 'react';
 import { EditPosts } from './EditPosts';
 import { useHttp } from '../hooks/http.hook';
 
-
 export const Post = ({ stateArr }) => {
    
    const {loading, request} = useHttp();
    const [postId, setPostId] = useState(null);
    const [hiden, setHiden] = useState(false);
-   // console.log('Post/js:',allposts)
-   // const x = posts
-    
-   
 
    const openHandler = (event) => {
       setPostId(event.target.id)
@@ -26,14 +21,10 @@ export const Post = ({ stateArr }) => {
       await setPostId(event.target.id)
       try {
          const data = await request(`/api/post/${postId}`, 'DELETE')
-         console.log('RES PUT', data._id)
+         // window.location.reload()
       } catch(e) {}
    };
   
-   // if(allposts,length) {
-   //    posts = allposts
-   // }
-     
    return (
       <div className="row"> 
          { stateArr.map( (post, index) => {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 import { useHttp } from '../hooks/http.hook';
-// import { Redirect } from 'react-router-dom';
-// import { useMessage } from '../hooks/message.hook';
 
 export const PostsCreatePage = () => {
 
@@ -10,7 +10,6 @@ export const PostsCreatePage = () => {
       content: '',
    });
    
-   // const message = useMessage();
    const {loading, request} = useHttp();
 
    const changeHandler = (event) => {
@@ -20,13 +19,12 @@ export const PostsCreatePage = () => {
    const createHandler = async () => {
       try {
          const data = await request('/api/post/generate', 'POST', {...post})
-         // message(data.message)
          console.log(data)
          setPost({ name: '', content: '' })
       } catch(e) {}
       console.log(post)
    };
-  
+
    useEffect(() => {// Убираем баг с label
       window.M.updateTextFields()
    }, []);
@@ -72,13 +70,11 @@ export const PostsCreatePage = () => {
                      disabled={loading}
                   >Создать
                   </button>
-                  <button 
+                  <Link 
                      className='btn grey lighten-1 black-text'
-                     // onClick={registerHandler} 
-                     disabled={loading}
-                     
-                  >выход
-                 </button>
+                     to='/'
+                     >выход
+                  </Link>
                </div>
             </div>
          </div>

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHttp } from '../hooks/http.hook';
 
-
-
 export const EditPosts = ({ closeHandler, postId }) => {
 
    const {loading, request} = useHttp();
@@ -21,6 +19,7 @@ export const EditPosts = ({ closeHandler, postId }) => {
          const data = await request(`/api/post/${postId}`, 'PUT', {...post})
          // message(data.message)
          await closeHandler()
+         // await  window.location.reload()
          console.log('RES PUT', data)
       } catch(e) {}
    };
