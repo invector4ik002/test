@@ -1,16 +1,23 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useDispatch } from 'react-redux';
+
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 import { AuthContext } from '../context/AuthContext';
+import { getPosts } from '../redux/action';
 
 export const AuthPage = () => {
+   const dispatch = useDispatch();
    const auth = useContext(AuthContext);
    const message = useMessage();
    const {loading, request, error, clearError} = useHttp();
+   const [posts, setPosts] = useState([]);
    const [form, setForm] = useState({
       email: '',
       password: '',
    });
+
+   dispatch(getPosts(posts));
 
    useEffect (() => {
       message(error)
@@ -31,10 +38,19 @@ export const AuthPage = () => {
          message(data.message)
       } catch(e) {}
    }
-   const loginHandler = async () => {
+   const loginHandler = async () => {//вход
       try {
+
+         const fetched = await request('/api/post', 'GET', null, {
+            //  Authorization: `Bearer ${token}`
+         })
+         setPosts(fetched);
+         
+
          const data = await request('/api/auth/login', 'POST', {...form})
          auth.login(data.token, data.userId)
+
+         
       } catch(e) {}
    }
 

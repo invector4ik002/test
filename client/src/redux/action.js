@@ -1,4 +1,4 @@
-import { SEARCH_POST, FETCH_POSTS, FILTER_POSTS } from './types'
+import { SEARCH_POST, FETCH_POSTS, FILTER_POSTS, GETARR_SEARCH } from './types'
 
 export function searchPost(value) {
    return {
@@ -18,5 +18,12 @@ export function filterPosts(value) {
    return {
       type: FILTER_POSTS,
       payload: value 
+   }
+}
+
+export function getArrSearch(value) {
+   return {
+      type: GETARR_SEARCH,
+      payload: value    
    }
 }

@@ -8,14 +8,15 @@ export const getPosts = ( state = initialState, action ) => {
       case FETCH_POSTS:
          // return {...state, fetchPosts: state.fetchPosts.concat(action.payload)}
          return {...state, fetchPosts: action.payload}
+         case FILTER_POSTS:
+            // return {...state, fetchPosts: state.fetchPosts.concat(action.payload)}
+            return {...state, fetchPosts: action.payload}
       default: return state
    }
 }
-export const filterPosts = ( state = initialState, action ) => {
-   switch(action.type) {
-      case FILTER_POSTS:
-         // return {...state, fetchPosts: state.fetchPosts.concat(action.payload)}
-         return {...state, fetchPosts: action.payload}
-      default: return state
-   }
-}
+// export const filterPosts = ( state = initialState, action ) => {
+//    switch(action.type) {
+      
+//       default: return state
+//    }
+// }

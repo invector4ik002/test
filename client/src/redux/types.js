@@ -1,3 +1,4 @@
 export const SEARCH_POST = 'POST/SEASRCH_POST';
 export const FETCH_POSTS = 'POST/FETCH_POSTS';
 export const FILTER_POSTS = 'POST/FILTER_POSTS';
+export const GETARR_SEARCH = 'POST/GETARR_SEARCH';

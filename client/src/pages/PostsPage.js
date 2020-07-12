@@ -1,42 +1,47 @@
 // useContext, 
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import { connect, useDispatch } from 'react-redux';
 
 import { Post } from '../components/Post';
 import { useHttp } from '../hooks/http.hook';
 import { Loader } from '../components/Loader';
-import { getPosts } from '../redux/action';
+// import { getPosts } from '../redux/action';
+import { getArrSearch } from '../redux/action';
 
-const PostsPage = ({searchItem, stateArr}) => {
+const PostsPage = ({ searchItem, stateArr }) => {
    console.log(searchItem)
    console.log(stateArr)
-   const [posts, setPosts] = useState([]);
+   // const [posts, setPosts] = useState([]);
    const [allposts, setAllPosts] = useState([]);
-   const {loading, request} = useHttp();
+   const { loading } = useHttp();
    const dispatch = useDispatch();
    const x = searchItem.search;
-   console.log('allposts',allposts)
+   
+   dispatch(getArrSearch(allposts));
+   // dispatch(getPosts(posts));
+   // console.log('PostPage.js (h) setPosts:', posts);
+   console.log('PostPage (h) setAllPosts:',allposts);
 
    useEffect(() => {
-      dispatch(getPosts(posts));
       const regexp = new RegExp(x, 'i' );
-      setAllPosts(posts.filter((el) => regexp.test(el.name)));
-   },[x, posts, dispatch])
+      setAllPosts(stateArr.filter((el) => regexp.test(el.name)));//???
+      
+   },[x, dispatch])
   
    // const {token} = useContext(AuthContext);
-   const fetchPosts = useCallback( async () => {
-      try {
-         const fetched = await request('/api/post', 'GET', null, {
-            // Authorization: `Bearer ${token}`
-         })
-         setPosts(fetched)
-      } catch(err){}
-      //token
-   }, [request])
+   // const fetchPosts = useCallback( async () => {
+   //    try {
+   //       const fetched = await request('/api/post', 'GET', null, {
+   //          // Authorization: `Bearer ${token}`
+   //       })
+   //       setPosts(fetched)
+   //    } catch(err){}
+   //    //token
+   // }, [request])
  
-   useEffect(() => {
-      fetchPosts()
-   },[fetchPosts])
+   // useEffect(() => {
+   //    fetchPosts()
+   // },[])
 
    if (loading) {
       return (

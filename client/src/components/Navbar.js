@@ -7,15 +7,18 @@ import { connect, useDispatch } from 'react-redux';
 import { searchPost } from '../redux/action';
 import { filterPosts } from '../redux/action';
 
-const Navbar = ({searchPosts}) => {
-   console.log(searchPosts)
+const Navbar = ({searchPosts, getArr}) => {
+   console.log('Navbar.js property-searchPosts:',searchPosts)
+   console.log('Navbar.js property-getArr:', getArr)
    const dispatch = useDispatch()
    const history = useHistory();
    const auth = useContext(AuthContext);
    const { token } = useAuth()
    const isAuthenticated = !!token;
    const [search, setSearch] = useState('');
-   
+
+   // ставим тут иф на search и запуск функции с ренднром массива с сервера(из стора)
+
    const logoutHandler = () => {
       // event.preventDefault();
       auth.logout();
@@ -27,10 +30,11 @@ const Navbar = ({searchPosts}) => {
    }
    // console.log(typeof searchPost)
    // searchPost(search)
-   const searchHandler = () => {
+   const searchHandler = () => {//поиск
       dispatch(searchPost(search));
-      dispatch(filterPosts(search));
-   // console.log(search)
+      dispatch(filterPosts(getArr));
+      console.log('Navbar (f) searchHandler :', search)
+      console.log('Navbar (f) searchHandler :', getArr)
    //  searchPost(false)
    }
 
@@ -74,7 +78,8 @@ const Navbar = ({searchPosts}) => {
 const mapStateToProps = (state) => {
    // console.log(state)
    return {
-      searchPosts: state.filter.fetchPosts
+      searchPosts: state.get.fetchPosts,
+      getArr: state.search.getArrSearch
    }
 }
 // const mapDispatchToProps = {
