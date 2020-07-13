@@ -17,15 +17,14 @@ export const EditPosts = ({ closeHandler, postId }) => {
    const editHandler = async () => {
       try {
          const data = await request(`/api/post/${postId}`, 'PUT', {...post})
-         // message(data.message)
          await closeHandler()
-         // await  window.location.reload()
+         window.location.reload()// ???
          console.log('RES PUT', data)
       } catch(e) {}
    };
    
 
-   useEffect(() => {// Убираем баг с label
+   useEffect(() => {
       window.M.updateTextFields()
    }, []);
 

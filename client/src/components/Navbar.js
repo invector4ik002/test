@@ -1,15 +1,12 @@
 import React, { useContext, useState, useCallback, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
 
 import { AuthContext } from '../context/AuthContext';
-// import { useAuth } from '../hooks/auth.hook';
 import { connect, useDispatch } from 'react-redux';
 import { searchPost } from '../redux/action';
 import { filterPosts } from '../redux/action';
 import { useHttp } from '../hooks/http.hook';
 import { getPosts } from '../redux/action';
-
 
 const Navbar = ({ searchPosts, getArr, isAuthenticated }) => {
    console.log('Navbar.js property-searchPosts:', searchPosts)
@@ -17,33 +14,18 @@ const Navbar = ({ searchPosts, getArr, isAuthenticated }) => {
    const dispatch = useDispatch()
    const history = useHistory();
    const auth = useContext(AuthContext);
-   // const { token } = useAuth()
    const { request } = useHttp();
    const [search, setSearch] = useState('');
-   // const [bolean, setBolean] = useState(false);
-   // const [posts, setPosts] = useState([]);
-   // const isAuthenticated = !!token;
-
-   // ставим тут иф на search и запуск функции с ренднром массива с сервера(из стора)
    
    const fetchPosts = useCallback( async () => {
       try {
-         const fetched = await request('/api/post', 'GET', null, {
-            // Authorization: `Bearer ${token}`
-         })
-         // setPosts(fetched)
+         const fetched = await request('/api/post', 'GET', null, {})
          dispatch(getPosts(fetched));
       } catch(err){}
       //token
    }, [request,dispatch])
 
-   
-   // dispatch(getPosts(posts));
-   // dispatch(getPosts(posts));
-   
-
-   const logoutHandler = (event) => {
-      // event.preventDefault();
+   const logoutHandler = () => {
       auth.logout();
       history.push('/');
    }
@@ -51,16 +33,10 @@ const Navbar = ({ searchPosts, getArr, isAuthenticated }) => {
    const changeHandler = (event) => {
       setSearch({[event.target.name]: event.target.value})
    }
-   // console.log(typeof searchPost)
-   // searchPost(search)
-   
+ 
    const searchHandler = () => {//поиск
-      
       dispatch(searchPost(search));
       dispatch(filterPosts(getArr));
-      // fetchPosts()
-      console.log('Navbar (f) searchHandler :', search);
-      console.log('Navbar (f) searchHandler getArr :', getArr);
 
       if(!getArr.length){
          fetchPosts()

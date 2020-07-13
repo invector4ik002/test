@@ -12,12 +12,7 @@ export const AuthPage = () => {
    const message = useMessage();
    const {loading, request, error, clearError} = useHttp();
    const [posts, setPosts] = useState([]);
-   const [form, setForm] = useState({
-      email: '',
-      password: '',
-   });
-
-   dispatch(getPosts(posts));
+   const [form, setForm] = useState({ email: '', password: '' });
 
    useEffect (() => {
       message(error)
@@ -38,22 +33,20 @@ export const AuthPage = () => {
          message(data.message)
       } catch(e) {}
    }
+   
    const loginHandler = async () => {//вход
       try {
 
          const fetched = await request('/api/post', 'GET', null, {
-            //  Authorization: `Bearer ${token}`
          })
          setPosts(fetched);
          
-
          const data = await request('/api/auth/login', 'POST', {...form})
          auth.login(data.token, data.userId)
 
-         
       } catch(e) {}
    }
-
+   dispatch(getPosts(posts));
    return (
       <div className='row'>
          <div className='col s6 offset-s3'>

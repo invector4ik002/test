@@ -11,11 +11,11 @@ export const Post = ({ stateArr }) => {
    const openHandler = (event) => {
       setPostId(event.target.id)
       setHiden(true)
-   }
+   };
 
    const closeHandler = () => {
       setHiden(false)
-   }
+   };
 
    const deleteHandler = async (event) => {
       await setPostId(event.target.id)
