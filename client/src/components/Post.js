@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import { EditPosts } from './EditPosts';
 import { useHttp } from '../hooks/http.hook';
 
@@ -17,13 +17,13 @@ export const Post = ({ stateArr }) => {
       setHiden(false)
    };
 
-   const deleteHandler = async (event) => {
+   const deleteHandler = useCallback( async (event) => {
       setPostId(event.target.id)
       try {
          await request(`/api/post/${postId}`, 'DELETE')
-         // window.location.reload()
+         window.location.reload()
       } catch(e) {}
-   };
+   },[postId, request]);
   
    return (
       <div className="row"> 

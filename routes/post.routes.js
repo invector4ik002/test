@@ -39,18 +39,8 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => { 
    try {
-      // const requestId = req.params.id;
-      // const NAME = req.body.name;
-      // const CONTENT = req.body.content;
-      // console.log('REQ id:', requestId);
-      // console.log('REQ NAME', NAME);
-      // console.log('REQ CONTENT', CONTENT);
-
      const post = await Post.findOneAndDelete({_id: req.params.id})
      res.status(200).json(post);
-   //   console.log('RES id:', post._id);
-   //   console.log('RES name:', post.name);
-   //   console.log('RES content:', post.content);
    } catch (err) {
    res.status(500).json({ message: '...Error server !!!' })
    }

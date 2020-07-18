@@ -9,11 +9,8 @@ import { useHttp } from '../hooks/http.hook';
 import { getPosts } from '../redux/action';
 import { getArrSearch } from '../redux/action';
 
-const Navbar = ({ searchPosts, getArr, isAuthenticated, stateArr, searchItem }) => {
-   console.log('Navbar.js property-searchPosts:', searchPosts)
-   console.log('Navbar.js property-getArr:', getArr)
-   console.log('Navbar.js property-stateArr:', stateArr)
-   console.log('Navbar.js property-searchItem:', searchItem.search)
+const Navbar = ({ getArr, isAuthenticated, stateArr, searchItem }) => {
+
    const dispatch = useDispatch()
    const history = useHistory();
    const auth = useContext(AuthContext);
@@ -26,8 +23,11 @@ const Navbar = ({ searchPosts, getArr, isAuthenticated, stateArr, searchItem }) 
          const fetched = await request('/api/post', 'GET', null, {})
          dispatch(getPosts(fetched));
       } catch(err){}
-      //token
-   }, [request,dispatch])
+   }, [request, dispatch])
+
+   useEffect(() => {
+      fetchPosts()
+   },[fetchPosts])
 
    const logoutHandler = () => {
       auth.logout();
@@ -37,49 +37,21 @@ const Navbar = ({ searchPosts, getArr, isAuthenticated, stateArr, searchItem }) 
    const changeHandler = (event) => {
       setSearch({[event.target.name]: event.target.value})
    }
-// 
-   // useEffect(() => {
-   //    window.M.updateTextFields()
-   // },[]);
-
-   // useEffect(() => {
-   //    // window.M.updateTextFields()
-   //    fetchPosts()
-   //    console.log(':38 useEffect:', search)
-   // },[search])
 
    const searchHandler = (event) => {//поиск
+
+      if(searchItem.search === "" || !getArr.length){
+         fetchPosts()
+      }
 
       const regexp = new RegExp(searchItem.search, 'i');
       setAllPosts(stateArr.filter((el) => regexp.test(el.name)));
       dispatch(getArrSearch(allposts));
 
-
-      event.preventDefault();
       dispatch(filterPosts(getArr));
       dispatch(searchPost(search));
-
-      if(searchItem.search === ""){
-         fetchPosts()
-         console.log('true')
-      } else {
-         console.log('false')
-      }
-
-      if(!getArr.length){
-         fetchPosts()
-      } else {
-         return
-      }
+      event.preventDefault();  
    }
-
-   useEffect(() => {
-      if(!getArr.length){
-         fetchPosts()
-      } else {
-         return
-      }
-   },[fetchPosts, getArr.length])
 
    return (
       <nav>
@@ -100,8 +72,6 @@ const Navbar = ({ searchPosts, getArr, isAuthenticated, stateArr, searchItem }) 
                      type="submit"
                      className='waves-effect blue accent-2 btn-small' 
                      htmlFor='search'
-                     //() => dispatch(searchPost(search))
-                     // onClick={}
                      >поиск
                   </button>
                </form>}
@@ -116,18 +86,14 @@ const Navbar = ({ searchPosts, getArr, isAuthenticated, stateArr, searchItem }) 
    )
 }
 
-
 const mapStateToProps = (state) => {
    // console.log(state)
    return {
       searchItem: state.search.search,
-      searchPosts: state.get.fetchPosts,
+      // searchPosts: state.get.fetchPosts,
       stateArr: state.get.fetchPosts,
       getArr: state.search.getArrSearch
    }
 }
-// const mapDispatchToProps = {
-//    searchPost
-// }
-// console.log(typeof searchPost)
-export default connect(mapStateToProps ,null)(Navbar);
+
+export default connect(mapStateToProps, null)(Navbar);

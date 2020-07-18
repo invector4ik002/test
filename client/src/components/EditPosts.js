@@ -16,10 +16,9 @@ export const EditPosts = ({ closeHandler, postId }) => {
 
    const editHandler = async () => {
       try {
-         const data = await request(`/api/post/${postId}`, 'PUT', {...post})
+         await request(`/api/post/${postId}`, 'PUT', {...post})
          await closeHandler()
-         window.location.reload()// ???
-         console.log('RES PUT', data)
+         window.location.reload()
       } catch(e) {}
    };
    
