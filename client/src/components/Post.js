@@ -18,9 +18,9 @@ export const Post = ({ stateArr }) => {
    };
 
    const deleteHandler = async (event) => {
-      await setPostId(event.target.id)
+      setPostId(event.target.id)
       try {
-         const data = await request(`/api/post/${postId}`, 'DELETE')
+         await request(`/api/post/${postId}`, 'DELETE')
          // window.location.reload()
       } catch(e) {}
    };
